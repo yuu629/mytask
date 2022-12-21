@@ -1,0 +1,13 @@
+<% @gender.each do |gender| %>
+    <%=link_to gender.name, search_search_path('search[value]': gender.id, 'search[how]': "match_gender"), class:"nav-link" %>
+<% end %>
+
+
+<% @price.each do |price| %>
+    <%=link_to price.name, search_search_path('search[value]': price.id, 'search[how]': "match_price"), class:"nav-link" %>
+<% end %>
+
+
+<% @tags.each do |tag| %>
+    <%=link_to "##{tag.name}", search_search_path('search[value]': tag.id, 'search[how]': "match_tag") , class:"nav-link" %>
+<% end %>

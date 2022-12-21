@@ -1,0 +1,35 @@
+<h3>詳細</h3>
+
+<table>
+  <tr>
+      <th>タイトル</th>
+      <td><%= @user.title %></td>
+  </tr>
+  <tr>
+      <th>開始日</th>
+      <td><%= @user.start_at.to_s(:datetime_jp) %></td>
+  </tr>
+  <tr>
+      <th>投稿日時</th>
+      <td><%= @user.end_at.to_s(:datetime_jp) %></td>
+  </tr>
+  <tr>
+      <th>終日</th>
+      <td>
+        <% if @user.is_all_day %>
+              <strong>○</strong>
+        <% end %>     
+      </td>      
+  </tr>
+  <tr>
+      <th>メモ</th>
+      <td><pre><%= @user.memo %></pre></td>
+  </tr>    
+</table>
+
+
+<ul>
+  <li><%= link_to "予約一覧に戻る", :users %></li>
+  <li><%= link_to "編集する", edit_user_path(@user.id) %></li>
+  <li><%= link_to "削除", user_path, method: :delete, data: { confirm: "本当に削除しますか？"} %></li>
+</ul>

@@ -11,6 +11,26 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <h1>宿泊予約サイト</h1>
+      <nav>
+                <% if user_signed_in? %>
+                <strong><%= link_to current_user.username, pages_show_path %></strong>
+                <%= link_to 'プロフィール変更', edit_user_registration_path %>
+                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+                
+              <% else %>
+                <%= link_to '登録', new_user_registration_path %>
+                <%= link_to 'ログイン', new_user_session_path %>
+              <% end %>
+      </nav>
+    </header>
+   <%= yield %>
+   <footer>
+    <h1>
+      現在の日時: <%= get_today_date %>
+      予約合計: <%= User.count('title') %>
+    </h1>
+   </footer>
   </body>
 </html>
