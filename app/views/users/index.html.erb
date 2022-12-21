@@ -1,0 +1,66 @@
+<h3>予約一覧</h3>
+
+<% if flash[:success] %>
+<p class="success"><%= flash[:success] %></p>
+<% end %>
+
+
+<table>
+ <thead>
+  <tr>
+    <th>id</th>
+    <th>タイトル</th>
+    <th>開始日</th>
+    <th>終了日</th>
+    <th>終日</th>
+    <th>更新日時</th>
+    <th>確認</th>
+    <th>編集</th>
+    <th>削除</th>
+  </tr>
+ </thead>
+
+  <div class="search-form">
+    <%= form_with url: search_path, method: :get, local: true do |f| %>
+      <%= f.text_field :keyword, value: @keyword %>
+      <%= f.submit "検索" %>
+    <% end %>
+  </div>
+  <div class="post-list">
+    <% @users.each do |user| %>
+    <%= user.title %>
+    <% end %>
+  </div>
+
+  <tbody>
+    <% if @users.count > 0 %>
+     <% @users.each do |user| %>
+      <tr>
+       <td><%= user.id %></td>
+       <td><%= user.title %></td>
+       <td><%= user.start_at.to_s(:datetime_jp) %></td>
+       <td><%= user.end_at.to_s(:datetime_jp) %></td>
+       <td>
+       <% if user.is_all_day %>
+           <strong>○</strong>
+       <% end %>         
+       </td>
+       <td><%= user.updated_at.to_s(:datetime_jp) %></td>
+       <td>
+        <%= link_to "確認", user %>
+       </td>
+       <td>
+        <%= link_to "編集", [:edit, user] %>
+       </td>
+       <td>
+        <%= link_to "削除", user, method: :delete,data: { confirm: "本当に削除しますか？"} %>
+       </td>
+      </tr>   
+       <% end %>
+       <% else %> 
+        <td colspan="9">現在予約はありません</td>
+       <% end %>     
+  </tbody>
+</table>
+
+<p><%= link_to "新規宿泊予約", :new_user %></p>
